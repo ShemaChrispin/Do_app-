@@ -26,7 +26,7 @@ A high-performance, PWA-enabled task management application built for the Leap S
 1. Navigate to the `frontend` directory: `cd frontend`
 2. Install dependencies: `npm install`
 3. Start the dev server: `npm run dev`
-4. Build for production: `npm run build`
+4. Build for production: `npm run build`  
 
 ## Key Features/Points of Innovation
 1. **Due Soon Priority:** Tasks are automatically sorted by deadline to ensure you never miss a due date.
