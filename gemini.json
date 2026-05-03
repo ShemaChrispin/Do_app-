@@ -1,4 +1,5 @@
 {
+    "applicationPreset": "frontend",
     "experimentalServices": {
         "frontend": {
             "entrypoint": "frontend",
