@@ -29,7 +29,7 @@ const LoginPage: React.FC = () => {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h2>Login</h2>
+        <h2>Do App Login (v2)</h2>
         {error && <p className="error-msg">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
