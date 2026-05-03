@@ -1,4 +1,5 @@
 {
+    "applicationPreset": "frontend",
     "experimentalServices": {
         "frontend": {
             "entrypoint": "frontend",
@@ -7,7 +8,7 @@
         },
         "backend": {
             "entrypoint": "backend",
-            "routePrefix": "/api",
+            "routePrefix": "/_/backend",
             "framework": "express"
         }
     }
