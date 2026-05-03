@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "comment": "Deployment v2 - clean config",
+  "comment": "CLEAN_DEPLOY_ID_992288",
   "rewrites": [
     {
       "source": "/api/(.*)",
