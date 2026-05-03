@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import prisma from '../services/prisma';
+import prisma from '../services/prisma.js';
 
 export const createTask = async (req: any, res: Response) => {
   const { content, startDate, dueDate, colorTags, category } = req.body;
