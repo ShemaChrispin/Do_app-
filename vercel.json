@@ -1,15 +1,13 @@
 {
-    "applicationPreset": "frontend",
-    "experimentalServices": {
-        "frontend": {
-            "entrypoint": "frontend",
-            "routePrefix": "/",
-            "framework": "vite"
-        },
-        "backend": {
-            "entrypoint": "backend",
-            "routePrefix": "/api",
-            "framework": "express"
-        }
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/backend/src/index.ts"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
+  ]
 }

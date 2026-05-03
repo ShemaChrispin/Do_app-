@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../hooks';
+
+import axios from 'axios';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -21,8 +23,12 @@ const LoginPage: React.FC = () => {
       const response = await api.post('/auth/login', { email, password });
       login(response.data.user, response.data.token);
       navigate('/dashboard');
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to login');
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.error || 'Failed to login');
+      } else {
+        setError('An unexpected error occurred');
+      }
     }
   };
 

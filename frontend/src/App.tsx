@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './hooks/useAuth';
+import { AuthProvider, useAuth } from './hooks';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import DashboardPage from './pages/DashboardPage';
 import './styles/global.css';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -22,7 +23,7 @@ function App() {
               path="/dashboard" 
               element={
                 <ProtectedRoute>
-                  <div>Dashboard (Coming Soon)</div>
+                  <DashboardPage />
                 </ProtectedRoute>
               } 
             />

@@ -3,12 +3,23 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import api from '../services/api';
 import TaskCard from '../components/TaskCard';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../hooks';
 import { LogOut, Plus, Filter, Calendar as CalendarIcon, List } from 'lucide-react';
 
+import axios from 'axios';
+
+interface Task {
+  id: number;
+  content: string;
+  startDate: string;
+  dueDate: string;
+  colorTags: string[];
+  category: string;
+  completed: boolean;
+}
+
 const DashboardPage: React.FC = () => {
-  const [tasks, setTasks] = useState<any[]>([]);
-  const [filteredTasks, setFilteredTasks] = useState<any[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [view, setView] = useState<'list' | 'calendar'>('list');
   const [categoryFilter, setCategoryFilter] = useState<'All' | 'Work' | 'Private'>('All');
   const [showForm, setShowForm] = useState(false);
@@ -20,26 +31,27 @@ const DashboardPage: React.FC = () => {
   const [error, setError] = useState('');
   const { logout, user } = useAuth();
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  useEffect(() => {
-    if (categoryFilter === 'All') {
-      setFilteredTasks(tasks);
-    } else {
-      setFilteredTasks(tasks.filter(t => t.category === categoryFilter));
-    }
-  }, [categoryFilter, tasks]);
-
-  const fetchTasks = async () => {
+  const fetchTasks = React.useCallback(async () => {
     try {
       const response = await api.get('/tasks');
       setTasks(response.data);
-    } catch (err) {
+    } catch {
       console.error('Failed to fetch tasks');
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchTasks();
+  }, [fetchTasks]);
+
+  const filteredTasks = React.useMemo(() => {
+    if (categoryFilter === 'All') {
+      return tasks;
+    } else {
+      return tasks.filter(t => t.category === categoryFilter);
+    }
+  }, [categoryFilter, tasks]);
 
   const handleCreateTask = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,17 +64,22 @@ const DashboardPage: React.FC = () => {
       setTagInput('');
       setShowForm(false);
       fetchTasks();
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to create task');
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.error || 'Failed to create task');
+      } else {
+        setError('An unexpected error occurred');
+      }
     }
   };
 
   const handleToggle = async (id: number) => {
     const task = tasks.find(t => t.id === id);
+    if (!task) return;
     try {
       await api.put(`/tasks/${id}`, { completed: !task.completed });
       fetchTasks();
-    } catch (err) {
+    } catch {
       console.error('Failed to update task');
     }
   };
@@ -71,7 +88,7 @@ const DashboardPage: React.FC = () => {
     try {
       await api.delete(`/tasks/${id}`);
       fetchTasks();
-    } catch (err) {
+    } catch {
       console.error('Failed to delete task');
     }
   };
@@ -97,7 +114,7 @@ const DashboardPage: React.FC = () => {
 
         <div className="filter-controls">
           <Filter size={20} className="filter-icon" />
-          <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value as any)}>
+          <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value as 'All' | 'Work' | 'Private')}>
             <option value="All">All Categories</option>
             <option value="Work">Work</option>
             <option value="Private">Private</option>
