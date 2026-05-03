@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "comment": "Deployment v2 - clean config",
   "rewrites": [
     {
       "source": "/api/(.*)",
