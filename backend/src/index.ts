@@ -15,6 +15,10 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
 
+// Fallback routes for Vercel/Proxy compatibility
+app.use('/auth', authRoutes);
+app.use('/tasks', taskRoutes);
+
 app.get('/health', (req: Request, res: Response) => {
   res.status(200).json({ status: 'OK', message: 'Server is running smoothly!' });
 });

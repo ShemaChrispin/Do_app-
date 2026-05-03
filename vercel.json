@@ -1,21 +1,15 @@
 {
-  "version": 2,
-  "rewrites": [
-    {
-      "source": "/api/auth/(.*)",
-      "destination": "/backend/src/index.ts"
-    },
-    {
-      "source": "/api/tasks/(.*)",
-      "destination": "/backend/src/index.ts"
-    },
-    {
-      "source": "/api/health",
-      "destination": "/backend/src/index.ts"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/frontend/index.html"
+    "applicationPreset": "frontend",
+    "experimentalServices": {
+        "frontend": {
+            "entrypoint": "frontend",
+            "routePrefix": "/",
+            "framework": "vite"
+        },
+        "backend": {
+            "entrypoint": "backend",
+            "routePrefix": "/api",
+            "framework": "express"
+        }
     }
-  ]
 }
