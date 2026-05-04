@@ -17,7 +17,7 @@
     "typecheck:frontend": "cd web && npx tsc --noEmit"
   },
   "dependencies": {
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "5.22.0",
     "axios": "^1.16.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
@@ -46,7 +46,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
-    "prisma": "^5.22.0",
+    "prisma": "5.22.0",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.58.2",
