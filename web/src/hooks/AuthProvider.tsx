@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AuthContext, User } from './AuthContext';
+import { AuthContext, type User } from './AuthContext';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(() => {
